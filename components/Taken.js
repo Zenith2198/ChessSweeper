@@ -18,15 +18,18 @@ export default class Taken {
 	}
 
 	setSize(size) {
-		this.size = `${size * .5}px`;
-		this.element.style.height = this.size;
+		this.size = size * .5;
+		this.element.style.height = `${this.size}px`;
 	}
 
 	add(piece) {
 		let img = document.createElement("img");
 		img.setAttribute("src", `assets/chess/${this.color}${piece}.png`);
-		img.style.width = this.size;
-		img.style.height = this.size;
+		img.style.width = `${this.size}px`;
+		img.style.height = `${this.size}px`;
+		if (this.pieces[piece].children.length) {
+			img.style.marginLeft = `${this.size * -.65}px`;
+		}
 		this.pieces[piece].appendChild(img);
 	}
 
