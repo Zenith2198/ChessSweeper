@@ -89,7 +89,10 @@ export default class Board {
 					this.network.send({
 						action: "move", args: {
 							move,
-							timer: move.color === "b" ? this.blackTimer.getTime() : this.whiteTimer.getTime()
+							timers: {
+								whiteTimer: this.whiteTimer.getTime(),
+								blackTimer: this.blackTimer.getTime()
+							}
 						}
 					});
 				}
@@ -153,7 +156,10 @@ export default class Board {
 								action: "sink",
 								args: {
 									position: square.position,
-									timer: this.game.turn() === "b" ? this.blackTimer.getTime() : this.whiteTimer.getTime()
+									timers: {
+										whiteTimer: this.whiteTimer.getTime(),
+										blackTimer: this.blackTimer.getTime()
+									}
 								}
 							});
 						}
@@ -269,15 +275,16 @@ export default class Board {
 	}
 
 	swapTimer() {
+		let firstMove = !(this.whiteTimer.getRunning() && this.blackTimer.getRunning());
 		if (this.gameOver) {
 			this.whiteTimer.stop(false);
 			this.blackTimer.stop(false);
 		} else if (this.game.turn() === "w") {
-			this.blackTimer.stop();
-			this.whiteTimer.start();
+			this.blackTimer.stop(firstMove);
+			this.whiteTimer.start(firstMove);
 		} else {
-			this.whiteTimer.stop();
-			this.blackTimer.start();
+			this.whiteTimer.stop(firstMove);
+			this.blackTimer.start(firstMove);
 		}
 	}
 

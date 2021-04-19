@@ -70,6 +70,10 @@ export default class Timer {
 		this.currTime = time;
 	}
 
+	getRunning() {
+		return this.running;
+	}
+
 	parse(seconds) {
 		let min = (seconds / 60) | 0;
 		let sec = (seconds % 60) | 0;
