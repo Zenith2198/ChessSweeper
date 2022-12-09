@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="main.css">
 </head>
 
-<body oncontextmenu="return false">
+<body>
 	<div class="serverSettings">
 		<form id="connectForm">
 			<div>
@@ -52,6 +52,9 @@
 						<li>
 							<p>Each player has the same Minesweeper board</p>
 						</li>
+						<li>
+							<p>There are the same number of mines on each side of the board</p>
+						</li>
 					</ul>
 					<li>
 						<p>After every 10 moves, the Minesweeper board resets</p>
@@ -72,7 +75,7 @@
 				</ol>
 			</div>
 			<div id="status"></div>
-			<div id="board"></div>
+			<div id="board" oncontextmenu="return false"></div>
 			<div class="footer">
 				<div class="buttons">
 					<button id="flipBoard">Flip Board</button>
@@ -99,6 +102,22 @@
 			<div class="whiteContainer">
 				<button id="claimWhite">Claim White</button>
 				<div id="youAreWhite">White is not claimed.</div>
+			</div>
+			<div class="gameSettings">
+				<div class="lobbyCodeWrapper">
+					<div id="lobbyCode">Not connected</div>
+					<form id="lobbyForm">
+						Lobby: <input id="lobbyCodeInput"><button id="joinLobby">Join</button>
+					</form>
+					<button id="createLobby">Create</button>
+				</div>
+				<div class="scrollOuter">
+					<div class="scrollInner">
+						<form id="gameSettingsForm" class="scrollContent">
+							these are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a d
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

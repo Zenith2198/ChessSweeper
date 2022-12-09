@@ -71,27 +71,61 @@ network.addOnMessage("moveAll", (data) => {
 });
 
 network.connect(document.getElementById("serverIP").value, document.getElementById("serverPort").value); //173.95.165.30
-document.getElementById("serverConnect").onclick = () => {
-	network.disconnect();
-	network.connect(document.getElementById("serverIP").value, document.getElementById("serverPort").value);
-};
+// document.getElementById("serverConnect").onclick = () => {
+// 	network.disconnect();
+// 	network.connect(document.getElementById("serverIP").value, document.getElementById("serverPort").value);
+// };
 document.getElementById("connectForm").onsubmit = (event) => {
 	event.preventDefault();
 	network.disconnect();
 	network.connect(document.getElementById("serverIP").value, document.getElementById("serverPort").value);
-}
+};
 document.getElementById("serverDisconnect").onclick = () => {
 	network.disconnect();
+};
+// document.getElementById("joinLobby").onclick = () => {
+// 	network.send({
+// 		action: "joinLobby",
+// 		args: {
+// 			lobbyCode: document.getElementById("lobbyCode")
+// 		}
+// 	});
+// };
+document.getElementById("lobbyForm").onsubmit = (event) => {
+	event.preventDefault();
+	network.addOnMessage("joinLobby", (data) => {
+		if (data.error) {
+			console.log(error);
+		} else {
+			document.getElementById("lobbyCode").innerHTML = data.lobbyCode;
+			document.getElementById("lobbyCodeInput").value = "";
+		}
+		network.removeOnMessage("joinLobby");
+	});
+	network.send({
+		action: "joinLobby",
+		args: {
+			lobbyCode: document.getElementById("lobbyCodeInput").value
+		}
+	});
+};
+document.getElementById("createLobby").onclick = () => {
+	network.addOnMessage("createLobby", (data) => {
+		if (data.error) {
+			console.log(error);
+		} else {
+			document.getElementById("lobbyCode").innerHTML = data.lobbyCode;
+			document.getElementById("lobbyCodeInput").value = "";
+		}
+		network.removeOnMessage("createLobby");
+	});
+	network.send({ action: "createLobby" });
 }
 
-document.onmousedown = (event) => {
+document.getElementById("board").onmousedown = (event) => {
 	board.mouseDown(event);
-	if (event.target.localName === "input") {
-		return true;
-	} else {
-		document.querySelectorAll(":focus").forEach((e) => e.blur());
-		return false;
-	}
+	document.querySelectorAll(":focus").forEach((e) => e.blur());
+	return false;
 };
 document.onmouseup = (event) => {
 	board.mouseUp(event);
@@ -112,16 +146,16 @@ document.getElementById("claimWhite").onclick = () => {
 	network.addOnMessage("claimWhite", (data) => {
 		if (data.error) {
 			console.log(error);
-			return;
+		} else {
+			board.color = "w";
+			if (board.perspective !== "w") {
+				document.getElementById("container").classList.toggle("flipped");
+				board.flipBoard();
+			}
+			document.getElementById("claimWhite").disabled = true;
+			document.getElementById("claimBlack").disabled = true;
+			document.getElementById("youAreWhite").innerHTML = "You are White.";
 		}
-		board.color = "w";
-		if (board.perspective !== "w") {
-			document.getElementById("container").classList.toggle("flipped");
-			board.flipBoard();
-		}
-		document.getElementById("claimWhite").disabled = true;
-		document.getElementById("claimBlack").disabled = true;
-		document.getElementById("youAreWhite").innerHTML = "You are White.";
 		network.removeOnMessage("claimWhite");
 	});
 	network.send({ action: "claimWhite" });
@@ -130,16 +164,16 @@ document.getElementById("claimBlack").onclick = () => {
 	network.addOnMessage("claimBlack", (data) => {
 		if (data.error) {
 			console.log(error);
-			return;
+		} else {
+			board.color = "b";
+			if (board.perspective !== "b") {
+				document.getElementById("container").classList.toggle("flipped");
+				board.flipBoard();
+			}
+			document.getElementById("claimWhite").disabled = true;
+			document.getElementById("claimBlack").disabled = true;
+			document.getElementById("youAreBlack").innerHTML = "You are Black."
 		}
-		board.color = "b";
-		if (board.perspective !== "b") {
-			document.getElementById("container").classList.toggle("flipped");
-			board.flipBoard();
-		}
-		document.getElementById("claimWhite").disabled = true;
-		document.getElementById("claimBlack").disabled = true;
-		document.getElementById("youAreBlack").innerHTML = "You are Black."
 		network.removeOnMessage("claimBlack");
 	});
 	network.send({ action: "claimBlack" });

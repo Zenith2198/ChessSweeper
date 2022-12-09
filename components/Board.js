@@ -275,16 +275,16 @@ export default class Board {
 	}
 
 	swapTimer() {
-		let firstMove = !(this.whiteTimer.getRunning() && this.blackTimer.getRunning());
+		let firstMove = !(this.whiteTimer.isRunning() && this.blackTimer.isRunning());
 		if (this.gameOver) {
 			this.whiteTimer.stop(false);
 			this.blackTimer.stop(false);
 		} else if (this.game.turn() === "w") {
 			this.blackTimer.stop(firstMove);
-			this.whiteTimer.start(firstMove);
+			this.whiteTimer.start();
 		} else {
 			this.whiteTimer.stop(firstMove);
-			this.blackTimer.start(firstMove);
+			this.blackTimer.start();
 		}
 	}
 

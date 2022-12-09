@@ -70,7 +70,7 @@ export default class Timer {
 		this.currTime = time;
 	}
 
-	getRunning() {
+	isRunning() {
 		return this.running;
 	}
 
