@@ -293,21 +293,17 @@ export default class Board {
 		this.blackTimer.setTime(timers.blackTimer);
 	}
 
-	setBoard(fen, mineCount, prevMove, gameOver, disconnect = "") {
+	setBoard(fen, mineCount, prevMove, timeControls, gameOver, disconnect = "") {
 		this.game.load(fen);
 		this.mineCount = mineCount;
 		this.gameOver = gameOver;
 
 		this.whiteTimer.restart();
 		this.blackTimer.restart();
-		this.network.addOnMessage("getControls", (data) => {
-			if (data.success) {
-				this.whiteTimer.setControls(data.timeControls);
-				this.blackTimer.setControls(data.timeControls);
-			}
-			this.network.removeOnMessage("getControls");
-		});
-		this.network.send({ action: "getControls" });
+		if (timeControls.length !== 0) {
+			this.whiteTimer.setControls(timeControls);
+			this.blackTimer.setControls(timeControls);
+		}
 		this.prevPositions = {};
 		this.color = "";
 		this.resetMS();

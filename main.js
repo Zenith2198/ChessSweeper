@@ -24,26 +24,32 @@ network.addOnMessage("setBoard", (data) => {
 	} else {
 		document.getElementById("youAreBlack").innerHTML = "Black is not claimed.";
 	}
-	board.setBoard(data.fen, data.mineCount, data.prevMove, !(data.whitePlayer && data.blackPlayer));
 	document.getElementById("flagCounter").innerHTML = data.mineCount;
+	document.getElementById("currStartingTime").innerHTML = data.timeControls[0];
+	document.getElementById("currIncrement").innerHTML = data.timeControls[1];
+	document.getElementById("currMineCountPerSide").innerHTML = data.mineCount / 2;
+	document.getElementById("currMovesUntilReset").innerHTML = data.movesUntilReset;
+	board.setBoard(data.fen, data.mineCount, data.prevMove, data.timeControls, !(data.whitePlayer && data.blackPlayer));
 });
 network.addOnMessage("resetBoard", (data) => {
-	board.setBoard(data.fen, data.mineCount, data.prevMove, !(data.whitePlayer && data.blackPlayer));
-	document.getElementById("claimWhite").disabled = false;
-	document.getElementById("claimBlack").disabled = false;
-	document.getElementById("youAreWhite").innerHTML = "White is not claimed.";
-	document.getElementById("youAreBlack").innerHTML = "Black is not claimed.";
+	board.setBoard(data.fen, data.mineCount, data.prevMove, data.timeControls, !(data.whitePlayer && data.blackPlayer));
+	if (!data.whitePlayer) {
+		document.getElementById("claimWhite").disabled = false;
+		document.getElementById("youAreWhite").innerHTML = "White is not claimed.";
+	}
+	if (!data.blackPlayer) {
+		document.getElementById("claimBlack").disabled = false;
+		document.getElementById("youAreBlack").innerHTML = "Black is not claimed.";
+	}
 });
 network.addOnMessage("whiteClaimed", (data) => {
 	if (data.taken) {
 		document.getElementById("youAreWhite").innerHTML = "White is claimed.";
 		document.getElementById("claimWhite").disabled = true;
 	} else {
-		board.setBoard(data.fen, data.mineCount, {}, true, "White");
+		board.setBoard(data.fen, data.mineCount, {}, [], true, "White");
 		document.getElementById("claimWhite").disabled = false;
-		document.getElementById("claimBlack").disabled = false;
 		document.getElementById("youAreWhite").innerHTML = "White is not claimed.";
-		document.getElementById("youAreBlack").innerHTML = "Black is not claimed.";
 	}
 });
 network.addOnMessage("blackClaimed", (data) => {
@@ -51,10 +57,8 @@ network.addOnMessage("blackClaimed", (data) => {
 		document.getElementById("youAreBlack").innerHTML = "Black is claimed.";
 		document.getElementById("claimBlack").disabled = true;
 	} else {
-		board.setBoard(data.fen, data.mineCount, {}, true, "Black");
-		document.getElementById("claimWhite").disabled = false;
+		board.setBoard(data.fen, data.mineCount, {}, [], true, "Black");
 		document.getElementById("claimBlack").disabled = false;
-		document.getElementById("youAreWhite").innerHTML = "White is not claimed.";
 		document.getElementById("youAreBlack").innerHTML = "Black is not claimed.";
 	}
 });
@@ -95,7 +99,8 @@ document.getElementById("lobbyForm").onsubmit = (event) => {
 	event.preventDefault();
 	network.addOnMessage("joinLobby", (data) => {
 		if (data.error) {
-			console.log(error);
+			document.getElementById("lobbyStatus").innerHTML = data.error;
+			console.log(data.error);
 		} else {
 			document.getElementById("lobbyCode").innerHTML = data.lobbyCode;
 			document.getElementById("lobbyCodeInput").value = "";
@@ -112,7 +117,8 @@ document.getElementById("lobbyForm").onsubmit = (event) => {
 document.getElementById("createLobby").onclick = () => {
 	network.addOnMessage("createLobby", (data) => {
 		if (data.error) {
-			console.log(error);
+			document.getElementById("lobbyStatus").innerHTML = data.error;
+			console.log(data.error);
 		} else {
 			document.getElementById("lobbyCode").innerHTML = data.lobbyCode;
 			document.getElementById("lobbyCodeInput").value = "";
@@ -121,6 +127,35 @@ document.getElementById("createLobby").onclick = () => {
 	});
 	network.send({ action: "createLobby" });
 }
+document.getElementById("gameSettingsForm").onsubmit = (event) => {
+	event.preventDefault();
+	network.addOnMessage("updateSettings", (data) => {
+		if (data.error) {
+			document.getElementById("lobbyStatus").innerHTML = data.error;
+			console.log(data.error);
+		} else {
+			document.getElementById("startingTime").value = "";
+			document.getElementById("increment").value = "";
+			document.getElementById("mineCountPerSide").value = "";
+			document.getElementById("movesUntilReset").value = "";
+
+			document.getElementById("currStartingTime").innerHTML = data.timeControls[0];
+			document.getElementById("currIncrement").innerHTML = data.timeControls[1];
+			document.getElementById("currMineCountPerSide").innerHTML = data.mineCount / 2;
+			document.getElementById("currMovesUntilReset").innerHTML = data.movesUntilReset;
+		}
+		network.removeOnMessage("updateSettings");
+	});
+	network.send({
+		action: "updateSettings",
+		args: {
+			startingTime: document.getElementById("startingTime").value,
+			increment: document.getElementById("increment").value,
+			mineCountPerSide: document.getElementById("mineCountPerSide").value,
+			movesUntilReset: document.getElementById("movesUntilReset").value,
+		}
+	});
+};
 
 document.getElementById("board").onmousedown = (event) => {
 	board.mouseDown(event);
@@ -145,7 +180,7 @@ document.getElementById("resetBoard").onclick = () => {
 document.getElementById("claimWhite").onclick = () => {
 	network.addOnMessage("claimWhite", (data) => {
 		if (data.error) {
-			console.log(error);
+			console.log(data.error);
 		} else {
 			board.color = "w";
 			if (board.perspective !== "w") {
@@ -163,7 +198,7 @@ document.getElementById("claimWhite").onclick = () => {
 document.getElementById("claimBlack").onclick = () => {
 	network.addOnMessage("claimBlack", (data) => {
 		if (data.error) {
-			console.log(error);
+			console.log(data.error);
 		} else {
 			board.color = "b";
 			if (board.perspective !== "b") {

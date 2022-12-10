@@ -34,11 +34,12 @@ export default class Network {
 			let data = JSON.parse(event.data);
 			if (data.action in this.onMessage) {
 				if ("args" in data) {
-					if ("error" in data.args) {
-						console.log(data.args.error);
-					} else {
-						this.onMessage[data.action](data.args);
-					}
+					// if ("error" in data.args) {
+					// 	console.log(data.args.error);
+					// 	console.log(data);
+					// } else {
+					this.onMessage[data.action](data.args);
+					// }
 				} else {
 					this.onMessage[data.action]();
 				}

@@ -57,9 +57,6 @@
 						</li>
 					</ul>
 					<li>
-						<p>After every 10 moves, the Minesweeper board resets</p>
-					</li>
-					<li>
 						<p>If you reveal a mine, you lose your turn</p>
 					</li>
 					<ul>
@@ -103,9 +100,13 @@
 				<button id="claimWhite">Claim White</button>
 				<div id="youAreWhite">White is not claimed.</div>
 			</div>
+			<div id="lobbyStatus"></div>
 			<div class="gameSettings">
 				<div class="lobbyCodeWrapper">
-					<div id="lobbyCode">Not connected</div>
+					<div class="code">
+						<div>Code:</div>
+						<div id="lobbyCode">Not connected</div>
+					</div>
 					<form id="lobbyForm">
 						Lobby: <input id="lobbyCodeInput"><button id="joinLobby">Join</button>
 					</form>
@@ -114,7 +115,17 @@
 				<div class="scrollOuter">
 					<div class="scrollInner">
 						<form id="gameSettingsForm" class="scrollContent">
-							these are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a dthese are the settings for the game aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaadsa a d
+							<h4>Time Controls</h4>
+							<div class="gameSettingsLabel"><p>Starting time (s):</p><p id="currStartingTime"></p></div>
+							<input id="startingTime">
+							<div class="gameSettingsLabel"><p>Increment (s):</p><p id="currIncrement"></p></div>
+							<input id="increment">
+							<h4>Minesweeper</h4>
+							<div class="gameSettingsLabel"><p>Mine Count Per Side:</p><p id="currMineCountPerSide"></p></div>
+							<input id="mineCountPerSide">
+							<div class="gameSettingsLabel"><p>Moves Until Reset:</p><p id="currMovesUntilReset"></p></div>
+							<input id="movesUntilReset">
+							<button id="settingsUpdate">Update</button>
 						</form>
 					</div>
 				</div>

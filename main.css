@@ -50,7 +50,7 @@ body {
 	grid-template-rows: auto auto auto auto auto auto 1fr;
 	grid-template-columns: 2fr auto 1fr 1fr;
 	grid-template-areas:
-		"rules status . gameSettings"
+		"rules status . lobbyStatus"
 		"rules board blackContainer gameSettings"
 		"rules board blackTimer gameSettings"
 		"rules board centerContainer gameSettings"
@@ -61,7 +61,7 @@ body {
 
 #container.flipped {
 	grid-template-areas:
-		"rules status . gameSettings"
+		"rules status . lobbyStatus"
 		"rules board whiteContainer gameSettings"
 		"rules board whiteTimer gameSettings"
 		"rules board centerContainer gameSettings"
@@ -95,6 +95,16 @@ body {
 	align-items: flex-end;
 	margin-bottom: 10px;
 	grid-area: status;
+}
+
+#lobbyStatus {
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	margin-bottom: 10px;
+	grid-area: lobbyStatus;
+	margin-right: 25px;
 }
 
 .footer {
@@ -209,7 +219,7 @@ body {
 .gameSettings {
 	grid-area: gameSettings;
 	padding: 15px;
-	margin: 0 25px 0 0;
+	margin-right: 25px;
 	border: 2px solid black;
 }
 
@@ -230,7 +240,13 @@ body {
 
 .gameSettings .scrollInner {
 	overflow-x: hidden;
-	margin: 0 -15px 30px 0;
+	margin: 0 -15px 80px 0;
+}
+
+.gameSettingsLabel {
+	display: flex;
+	justify-content: flex-start;
+	gap: 10px;
 }
 
 .lobbyCodeWrapper {
@@ -239,9 +255,15 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex-wrap: wrap;
+	gap: 5px;
 	margin: 0 -15px;
 	padding: 0 15px 15px;
 	border-bottom: 2px solid black;
+}
+
+.code {
+	display: flex;
+	gap: 5px;
 }
 
 #lobbyCodeInput {
@@ -253,9 +275,13 @@ body {
 }
 
 #gameSettingsForm {
-	display: flex;
-	flex-direction: column;
-	margin: 15px 0;
+	display: grid;
+	gap: 7px;
+	margin: 15px 15px 15px 0;
+}
+
+#gameSettingsForm h4, #gameSettingsForm p {
+	margin: 0;
 }
 
 .Board {

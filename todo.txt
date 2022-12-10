@@ -3,7 +3,5 @@ make possible moves highlight
 make mines more apparent when piece lands on it
 make spectators able to see minesweeper state for each player (white/black dot/flag in bottom left corner)
 allow promotions to pieces other than the queen
-allow game settings to be changed
 bottom left corner of square should be dark
-fix lobby settings lower scroll arrow from disappearing
 remove ability for rank/file labels and pieces to be highlighted
