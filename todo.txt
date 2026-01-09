@@ -5,3 +5,6 @@ make spectators able to see minesweeper state for each player (white/black dot/f
 allow promotions to pieces other than the queen
 bottom left corner of square should be dark
 remove ability for rank/file labels and pieces to be highlighted
+don't reveal square when dragging a piece (?)
+allow more than one square to be revealed (?)
+make timer start when white sinks a square
